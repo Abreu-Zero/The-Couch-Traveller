@@ -7,10 +7,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Map View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="TheCouchTraveller" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MapViewController" customModule="TheCouchTraveller" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -18,18 +18,37 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="nTB-5f-Rhj">
                                 <rect key="frame" x="20" y="44" width="374" height="818"/>
                             </mapView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="MNH-MH-ztt">
+                                <rect key="frame" x="197" y="438" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="nTB-5f-Rhj" secondAttribute="bottom" id="Gj8-In-ooY"/>
+                            <constraint firstItem="MNH-MH-ztt" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Jom-Se-jpk"/>
+                            <constraint firstItem="MNH-MH-ztt" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Ltc-jo-1fg"/>
                             <constraint firstItem="nTB-5f-Rhj" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="aKC-9a-wSU"/>
                             <constraint firstItem="nTB-5f-Rhj" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="ten-bQ-zhO"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="nTB-5f-Rhj" secondAttribute="trailing" constant="20" id="vjk-ut-iS6"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="2nD-c3-UiV" appends="YES" id="fh1-bL-ItK"/>
+                        </connections>
                     </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="MNH-MH-ztt" id="n2f-qW-utc"/>
+                        <outlet property="longPressRec" destination="2nD-c3-UiV" id="K5k-aj-FUo"/>
+                        <outlet property="mapView" destination="nTB-5f-Rhj" id="CaA-U4-ixI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="2nD-c3-UiV">
+                    <connections>
+                        <action selector="handleLongPress:" destination="BYZ-38-t0r" id="0cr-Ft-DbE"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="97.767857142857139"/>
         </scene>
