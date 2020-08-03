@@ -85,10 +85,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     @IBAction func handleLongPress(_ sender: UILongPressGestureRecognizer) {
         if sender.state == .began {
-            print("BEGAN")
+            activityIndicator.startAnimating()
         } else if sender.state == .ended {
             let coord = mapView.convert(sender.location(in: mapView), toCoordinateFrom: mapView)
             saveGeoCoordination(from: coord)
+            activityIndicator.stopAnimating()
 
         }
     }
