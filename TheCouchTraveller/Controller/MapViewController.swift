@@ -67,19 +67,22 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         guard let result = try? dataController?.viewContext.fetch(fetchRequest) else{return}
         locations = result
         if locations.count > 0{
-            let geoPos = CLLocation(latitude: locations[0].latitude, longitude: locations[0].longitude)
-            let annotation = MKPointAnnotation()
-            
-            CLGeocoder().reverseGeocodeLocation(geoPos) { (placemarks, error) in
-                guard let placemark = placemarks?.first else { return }
-                annotation.title = placemark.name ?? "Not Known"
-                annotation.subtitle = placemark.country
-                annotation.coordinate = geoPos.coordinate
-                DispatchQueue.main.async {
-                    self.mapView.addAnnotation(annotation)
+            for location in locations{
+                let geoPos = CLLocation(latitude: location.latitude, longitude: location.longitude)
+                let annotation = MKPointAnnotation()
+                
+                CLGeocoder().reverseGeocodeLocation(geoPos) { (placemarks, error) in
+                    guard let placemark = placemarks?.first else { return }
+                    annotation.title = placemark.name ?? "Not Known"
+                    annotation.subtitle = placemark.country
+                    annotation.coordinate = geoPos.coordinate
+                    DispatchQueue.main.async {
+                        self.mapView.addAnnotation(annotation)
 
+                    }
                 }
             }
+            
         }
         
     }
