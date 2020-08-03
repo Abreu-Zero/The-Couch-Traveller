@@ -62,6 +62,7 @@
 		99200AF924D81B22009F9560 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				99FC680F24D8652800F5DF23 /* FlickrAPI */,
 				99200AFA24D81B60009F9560 /* TheCouchTraveller.xcdatamodeld */,
 				99200AFD24D82FC8009F9560 /* DataController.swift */,
 			);
@@ -95,6 +96,13 @@
 				9925FDE124D8094A001ADBD2 /* Info.plist */,
 			);
 			path = TheCouchTraveller;
+			sourceTree = "<group>";
+		};
+		99FC680F24D8652800F5DF23 /* FlickrAPI */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = FlickrAPI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
