@@ -49,6 +49,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         return pinView
     }
     
+    // This delegate method is implemented to respond to taps. I am calling a segue to the next view so far. preapre for segue will inject the dataController
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        if control == view.rightCalloutAccessoryView {
+            performSegue(withIdentifier: "showPhotos", sender: control)
+            
+        }
+    }
+    
     
     //MARK: Map Funcs
     // fetches request from datamodel and loads the mapview
@@ -114,6 +122,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 
             }
         }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destination = segue.destination
     }
 }
 
