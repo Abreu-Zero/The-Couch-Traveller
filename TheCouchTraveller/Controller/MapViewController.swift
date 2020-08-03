@@ -125,7 +125,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destination = segue.destination
+        let destination = segue.destination as! PhotoAlbumViewController
+        //TODO: inject location so PhotoAlbumViewController can download the pictures!!!
     }
 }
 
