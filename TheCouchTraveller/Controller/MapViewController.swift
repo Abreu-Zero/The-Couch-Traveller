@@ -49,17 +49,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         return pinView
     }
     
-
-    @IBAction func handleLongPress(_ sender: UILongPressGestureRecognizer) {
-        if sender.state == .began {
-            print("BEGAN")
-        } else if sender.state == .ended {
-            let coord = mapView.convert(sender.location(in: mapView), toCoordinateFrom: mapView)
-            saveGeoCoordination(from: coord)
-
-        }
-    }
     
+    //MARK: Map Funcs
+    // fetches request from datamodel and loads the mapview
     func loadMap(){
         
         let fetchRequest : NSFetchRequest<Location> = Location.fetchRequest()
@@ -87,7 +79,19 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
     }
     
-    /// get Geo position and store value Pin viewContext
+    //MARK: Touch Funcs
+    
+    @IBAction func handleLongPress(_ sender: UILongPressGestureRecognizer) {
+        if sender.state == .began {
+            print("BEGAN")
+        } else if sender.state == .ended {
+            let coord = mapView.convert(sender.location(in: mapView), toCoordinateFrom: mapView)
+            saveGeoCoordination(from: coord)
+
+        }
+    }
+    
+    //convert and save the longPress into coordinates
     func saveGeoCoordination(from coordinate: CLLocationCoordinate2D) {
         let geoPos = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
         let savedGeo = Location(context: dataController!.viewContext)
