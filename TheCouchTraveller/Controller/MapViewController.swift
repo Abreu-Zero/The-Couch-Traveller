@@ -16,6 +16,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var annotations = [MKPointAnnotation]()
+    var dataController: DataController?
 
     override func viewDidLoad() {
         super.viewDidLoad()

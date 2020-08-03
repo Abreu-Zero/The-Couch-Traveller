@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		99200AFC24D81B60009F9560 /* TheCouchTraveller.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 99200AFA24D81B60009F9560 /* TheCouchTraveller.xcdatamodeld */; };
+		99200AFE24D82FC8009F9560 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99200AFD24D82FC8009F9560 /* DataController.swift */; };
 		9925FDD424D80941001ADBD2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9925FDD324D80941001ADBD2 /* AppDelegate.swift */; };
 		9925FDD624D80941001ADBD2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9925FDD524D80941001ADBD2 /* SceneDelegate.swift */; };
 		9925FDD824D80941001ADBD2 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9925FDD724D80941001ADBD2 /* MapViewController.swift */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		99200AFB24D81B60009F9560 /* Annotation.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Annotation.xcdatamodel; sourceTree = "<group>"; };
+		99200AFD24D82FC8009F9560 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		9925FDD024D80941001ADBD2 /* TheCouchTraveller.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheCouchTraveller.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9925FDD324D80941001ADBD2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9925FDD524D80941001ADBD2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -37,6 +41,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		99200AF724D81B09009F9560 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				9925FDD724D80941001ADBD2 /* MapViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		99200AF824D81B15009F9560 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9925FDD924D80941001ADBD2 /* Main.storyboard */,
+				9925FDDC24D8094A001ADBD2 /* Assets.xcassets */,
+				9925FDDE24D8094A001ADBD2 /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		99200AF924D81B22009F9560 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				99200AFA24D81B60009F9560 /* TheCouchTraveller.xcdatamodeld */,
+				99200AFD24D82FC8009F9560 /* DataController.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		9925FDC724D80941001ADBD2 = {
 			isa = PBXGroup;
 			children = (
@@ -58,10 +89,9 @@
 			children = (
 				9925FDD324D80941001ADBD2 /* AppDelegate.swift */,
 				9925FDD524D80941001ADBD2 /* SceneDelegate.swift */,
-				9925FDD724D80941001ADBD2 /* MapViewController.swift */,
-				9925FDD924D80941001ADBD2 /* Main.storyboard */,
-				9925FDDC24D8094A001ADBD2 /* Assets.xcassets */,
-				9925FDDE24D8094A001ADBD2 /* LaunchScreen.storyboard */,
+				99200AF924D81B22009F9560 /* Model */,
+				99200AF724D81B09009F9560 /* Controller */,
+				99200AF824D81B15009F9560 /* View */,
 				9925FDE124D8094A001ADBD2 /* Info.plist */,
 			);
 			path = TheCouchTraveller;
@@ -138,8 +168,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99200AFE24D82FC8009F9560 /* DataController.swift in Sources */,
 				9925FDD824D80941001ADBD2 /* MapViewController.swift in Sources */,
 				9925FDD424D80941001ADBD2 /* AppDelegate.swift in Sources */,
+				99200AFC24D81B60009F9560 /* TheCouchTraveller.xcdatamodeld in Sources */,
 				9925FDD624D80941001ADBD2 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -338,6 +370,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		99200AFA24D81B60009F9560 /* TheCouchTraveller.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				99200AFB24D81B60009F9560 /* Annotation.xcdatamodel */,
+			);
+			currentVersion = 99200AFB24D81B60009F9560 /* Annotation.xcdatamodel */;
+			path = TheCouchTraveller.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 9925FDC824D80941001ADBD2 /* Project object */;
 }
