@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import CoreData
 
 class MapViewController: UIViewController, MKMapViewDelegate {
 
@@ -17,10 +18,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     var annotations = [MKPointAnnotation]()
     var dataController: DataController?
-
+    var locations: [Location] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
+        loadMap()
     
     }
 
@@ -57,9 +60,38 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    func loadMap(){
+        
+        let fetchRequest : NSFetchRequest<Location> = Location.fetchRequest()
+
+        guard let result = try? dataController?.viewContext.fetch(fetchRequest) else{return}
+        locations = result
+        if locations.count > 0{
+            let geoPos = CLLocation(latitude: locations[0].latitude, longitude: locations[0].longitude)
+            let annotation = MKPointAnnotation()
+            
+            CLGeocoder().reverseGeocodeLocation(geoPos) { (placemarks, error) in
+                guard let placemark = placemarks?.first else { return }
+                annotation.title = placemark.name ?? "Not Known"
+                annotation.subtitle = placemark.country
+                annotation.coordinate = geoPos.coordinate
+                DispatchQueue.main.async {
+                    self.mapView.addAnnotation(annotation)
+
+                }
+            }
+        }
+        
+    }
+    
     /// get Geo position and store value Pin viewContext
     func saveGeoCoordination(from coordinate: CLLocationCoordinate2D) {
         let geoPos = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        let savedGeo = Location(context: dataController!.viewContext)
+        savedGeo.latitude = geoPos.coordinate.latitude
+        savedGeo.longitude = geoPos.coordinate.longitude
+        try? dataController!.viewContext.save()
+        
         let annotation = MKPointAnnotation()
         CLGeocoder().reverseGeocodeLocation(geoPos) { (placemarks, error) in
             guard let placemark = placemarks?.first else { return }

@@ -12,14 +12,10 @@ import CoreData
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?
-    let dataController = DataController(modelName: "TheCouchTraveller")
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        let navigationController = window?.rootViewController as! UINavigationController
-        let mapVC = navigationController.topViewController as! MapViewController
-        mapVC.dataController = dataController
+        
+        
         return true
     }
 
