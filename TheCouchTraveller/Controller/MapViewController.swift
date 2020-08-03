@@ -55,6 +55,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func loadMap(){
         
         let fetchRequest : NSFetchRequest<Location> = Location.fetchRequest()
+        let sortDescription = NSSortDescriptor(key: "creationDate", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescription]
 
         guard let result = try? dataController?.viewContext.fetch(fetchRequest) else{return}
         locations = result
@@ -97,6 +99,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let savedGeo = Location(context: dataController!.viewContext)
         savedGeo.latitude = geoPos.coordinate.latitude
         savedGeo.longitude = geoPos.coordinate.longitude
+        savedGeo.creationDate = Date()
         try? dataController!.viewContext.save()
         
         let annotation = MKPointAnnotation()
