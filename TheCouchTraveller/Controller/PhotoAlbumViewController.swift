@@ -13,6 +13,7 @@ class PhotoAlbumViewController: UICollectionViewController {
     var latitude: Double?
     var longitude: Double?
     var photos: [Photo] = []
+    var dataController: DataController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +42,7 @@ class PhotoAlbumViewController: UICollectionViewController {
             return
             }
             for p in data{
-                let newPhoto = Photo()
+                let newPhoto = Photo(context: self.dataController!.viewContext)
                 newPhoto.url = URL(string: p.url)
                 newPhoto.title = p.title
                 self.photos.append(newPhoto)

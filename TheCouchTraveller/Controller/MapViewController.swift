@@ -129,6 +129,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let location = sender as! MKAnnotationView
         destination.latitude = location.annotation?.coordinate.latitude
         destination.longitude = location.annotation?.coordinate.longitude
+        destination.dataController = dataController
 
         
         //TODO: inject location so PhotoAlbumViewController can download the pictures!!!
