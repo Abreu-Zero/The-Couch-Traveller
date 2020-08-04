@@ -13,12 +13,14 @@ class PhotoAlbumViewController: UICollectionViewController {
     var latitude: Double?
     var longitude: Double?
     var photos: [Photo] = []
+    var downloadedPhotos: [UIImage] = []
     var dataController: DataController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print(latitude ?? "not found")
         
+        //FIXME: discover why the hell the pictures are not being shown correctly
         loadSavedImages()
         if photos.count == 0{
             downloadAlbum()
@@ -46,12 +48,27 @@ class PhotoAlbumViewController: UICollectionViewController {
                 newPhoto.url = URL(string: p.url)
                 newPhoto.title = p.title
                 self.photos.append(newPhoto)
+                //TODO: filter the private photos?
+                
+                FlickrClient.requestImageFile(url: newPhoto.url!) { (photoImg, error) in
+                guard let photoImg = photoImg else{
+                    print(error!)
+                    return
+                    }
+                    self.downloadedPhotos.append(photoImg)
+                }
+            
             }
+            
+            DispatchQueue.main.async {
+                       self.collectionView.reloadData()
+
+                   }
         }
     }
     
     func loadSavedImages(){
-        return
+        downloadAlbum()
     }
     
     
@@ -60,23 +77,15 @@ class PhotoAlbumViewController: UICollectionViewController {
        }
        
        override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-           return photos.count
+           return downloadedPhotos.count
        }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //sets the cell using photo data
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! PhotoCell
-        let photoURL = self.photos[indexPath.row].url!
-        FlickrClient.requestImageFile(url: photoURL) { (photoImageView, error) in
-            guard let photoImageView = photoImageView else{
-                print(error!)
-                return
-            }
-            let photo = photoImageView
-            cell.imageView.image = photo
-        }
-
+        let photo = self.downloadedPhotos[indexPath.row]
+        cell.imageView.image = photo
         return cell
     }
     
