@@ -126,8 +126,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destination = segue.destination as! PhotoAlbumViewController
-        //let location = sender as! Location
-        //destination.location = location
+        let location = sender as! MKAnnotationView
+        destination.latitude = location.annotation?.coordinate.latitude
+        destination.longitude = location.annotation?.coordinate.longitude
+
         
         //TODO: inject location so PhotoAlbumViewController can download the pictures!!!
     }
