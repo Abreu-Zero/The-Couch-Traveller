@@ -55,10 +55,10 @@
             </objects>
             <point key="canvasLocation" x="1017" y="49"/>
         </scene>
-        <!--Collection View Controller-->
+        <!--Photo Album View Controller-->
         <scene sceneID="7PV-eL-skl">
             <objects>
-                <collectionViewController id="Myn-70-ayF" sceneMemberID="viewController">
+                <collectionViewController id="Myn-70-ayF" customClass="PhotoAlbumViewController" customModule="TheCouchTraveller" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="dEJ-K7-IZ8">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

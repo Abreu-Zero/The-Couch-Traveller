@@ -19,6 +19,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     var annotations = [MKPointAnnotation]()
     var dataController: DataController?
     var locations: [Location] = []
+    var longitude: Double = 0
+    var latitude: Double = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,12 +51,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         return pinView
     }
     
-    // This delegate method is implemented to respond to taps. I am calling a segue to the next view so far. preapre for segue will inject the dataController
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        if control == view.rightCalloutAccessoryView {
-            performSegue(withIdentifier: "showPhotos", sender: control)
-            
-        }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        performSegue(withIdentifier: "showPhotos", sender: view)
+
     }
     
     
@@ -126,6 +126,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destination = segue.destination as! PhotoAlbumViewController
+        //let location = sender as! Location
+        //destination.location = location
+        
         //TODO: inject location so PhotoAlbumViewController can download the pictures!!!
     }
 }

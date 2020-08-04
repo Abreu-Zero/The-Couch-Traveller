@@ -8,12 +8,14 @@
 
 import UIKit
 
-class PhotoAlbumViewController: UIViewController {
+class PhotoAlbumViewController: UICollectionViewController {
 
+    var location: Location?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(location ?? "not found")
 
-        // Do any additional setup after loading the view.
     }
     
 

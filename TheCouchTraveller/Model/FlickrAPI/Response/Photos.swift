@@ -14,10 +14,10 @@ struct Photos: Codable{
     let pages: Int
     let perpage: Int
     let total : Int
-    let photo: [Photo]
+    let photo: [PhotoR]
 }
 
-struct Photo: Codable{
+struct PhotoR: Codable{
     
     let id: String
     let owner: String

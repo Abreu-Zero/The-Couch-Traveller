@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class FlickrClient{
         
@@ -23,6 +24,25 @@ class FlickrClient{
         "&format=json&nojsoncallback=1&extras=url_m"
     }
     
-    //TODO: add get request for the location func and dowload photos for location func to PhotoAlbumVC handle
-    //TODO: Implement parser for EVERYTHING
+    
+    //this request return a [PhotoR], that should have all the details to be used in the PhotoAlbumVC
+    
+    class func requestImageFile(url: URL, completionHandler: @escaping ([PhotoR]?, Error?) -> Void) {
+        let task = URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
+            
+            guard let data = data else {
+                completionHandler(nil, error)
+                return
+            }
+            do{
+                let decoder = JSONDecoder()
+                let photos = try decoder.decode(Photos.self, from: data)
+                completionHandler(photos.photo, nil)
+            }catch{
+                completionHandler(nil, error)
+            }
+                    
+        })
+        task.resume()
+    }
 }
