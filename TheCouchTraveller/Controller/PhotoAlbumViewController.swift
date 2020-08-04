@@ -36,20 +36,12 @@ class PhotoAlbumViewController: UICollectionViewController {
             guard let data = data else{
                 print(error!)
                 return
-            }
+                }
                 
+            }
         }
     }
     
-    // MARK: col funcs
-    
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
-    }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //sets the cell using photo data
@@ -64,10 +56,9 @@ class PhotoAlbumViewController: UICollectionViewController {
     
     // MARK: segue funcs
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
          if segue.identifier == "toPhoto"{
       
-             
              if let cell = sender as? UICollectionViewCell{
                 
                 let indexPath = self.collectionView!.indexPath(for: cell)
@@ -76,12 +67,10 @@ class PhotoAlbumViewController: UICollectionViewController {
 
                  
              }
+             
          }
         
         
      }
     
-
-   //TODO: implement handlers for photo downloads and UI updates
-
 }
