@@ -36,12 +36,25 @@ class FlickrClient{
             }
             do{
                 let decoder = JSONDecoder()
-                let photos = try decoder.decode(Photos.self, from: data)
+                let result = try decoder.decode(fResults.self, from: data)
+                let photos = result.photos
                 completionHandler(photos.photo, nil)
             }catch{
                 completionHandler(nil, error)
             }
                     
+        })
+        task.resume()
+    }
+    
+    class func requestImageFile(url: URL, completionHandler: @escaping (UIImage?, Error?) -> Void) {
+        let task = URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
+            guard let data = data else {
+                completionHandler(nil, error)
+                return
+            }
+            let downloadedImage = UIImage(data: data)
+            completionHandler(downloadedImage, nil)
         })
         task.resume()
     }

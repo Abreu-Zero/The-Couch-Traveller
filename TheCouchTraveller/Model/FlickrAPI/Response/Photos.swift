@@ -7,14 +7,25 @@
 //
 
 import Foundation
-
+struct fResults: Codable{
+    
+    let photos: Photos
+}
 struct Photos: Codable{
     
     let page: Int
     let pages: Int
     let perpage: Int
-    let total : Int
+    let total : String
     let photo: [PhotoR]
+    
+    enum CodingKeys: String, CodingKey{
+        case page
+        case pages
+        case perpage
+        case total
+        case photo
+    }
 }
 
 struct PhotoR: Codable{
@@ -25,9 +36,9 @@ struct PhotoR: Codable{
     let server: String
     let farm: Int
     let title: String
-    let ispublic: Bool
-    let isfriend: Bool
-    let isfamily: Bool
+    let ispublic: Int
+    let isfriend: Int
+    let isfamily: Int
     let url: String
     let height: Double
     let width: Double
