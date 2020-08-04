@@ -10,11 +10,12 @@ import UIKit
 
 class PhotoAlbumViewController: UICollectionViewController {
 
-    var location: Location?
+    var latitude: Double?
+    var longitude: Double?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(location ?? "not found")
+        print(latitude ?? "not found")
 
     }
     
