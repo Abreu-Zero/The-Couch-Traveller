@@ -10,8 +10,6 @@ import Foundation
 import UIKit
 
 class FlickrClient{
-        
-    var url: String = "https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=7eb8d8258cca4594b5a50ae10b735ed2"
     
     class func buildURL(latitude: Double, longitude: Double) -> URL{
  
@@ -29,7 +27,7 @@ class FlickrClient{
     
     //this request return a [PhotoR], that should have all the details to be used in the PhotoAlbumVC
     
-    class func requestImageFile(url: URL, completionHandler: @escaping ([PhotoR]?, Error?) -> Void) {
+    class func requestPhotoAlbum(url: URL, completionHandler: @escaping ([PhotoR]?, Error?) -> Void) {
         let task = URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
             
             guard let data = data else {
@@ -47,4 +45,6 @@ class FlickrClient{
         })
         task.resume()
     }
+    
+    
 }

@@ -12,7 +12,7 @@ class PhotoAlbumViewController: UICollectionViewController {
 
     var latitude: Double?
     var longitude: Double?
-    var photos: [UIImage] = []
+    var photos: [Photo] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,12 +32,16 @@ class PhotoAlbumViewController: UICollectionViewController {
                 return
             }
             let url = FlickrClient.buildURL(latitude: latitude, longitude: longitude)
-            FlickrClient.requestImageFile(url: url) { (data, error) in
+            FlickrClient.requestPhotoAlbum(url: url) { (data, error) in
             guard let data = data else{
                 print(error!)
                 return
                 }
-                
+                for p in data{
+                    let newPhoto = Photo()
+                    newPhoto.url = URL(string: p.url)
+                    newPhoto.title = p.title
+                }
             }
         }
     }
@@ -47,7 +51,7 @@ class PhotoAlbumViewController: UICollectionViewController {
         //sets the cell using photo data
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! PhotoCell
-        let photo = self.photos[indexPath.row]
+        let photo = self.photos[indexPath.row].url
 
         cell.imageView.image = photo
         

@@ -7,11 +7,12 @@
         <relationship name="album" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Photo" inverseName="location" inverseEntity="Photo"/>
     </entity>
     <entity name="Photo" representedClassName="Photo" syncable="YES" codeGenerationType="class">
+        <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="url" optional="YES" attributeType="URI"/>
         <relationship name="location" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="album" inverseEntity="Location"/>
     </entity>
     <elements>
         <element name="Location" positionX="-63" positionY="-18" width="128" height="103"/>
-        <element name="Photo" positionX="-218.09765625" positionY="-11.79296875" width="128" height="73"/>
+        <element name="Photo" positionX="-218.09765625" positionY="-11.79296875" width="128" height="88"/>
     </elements>
 </model>
