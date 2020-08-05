@@ -11,31 +11,20 @@ import CoreData
 
 class PhotoAlbumViewController: UICollectionViewController {
 
-    var latitude: Double?
-    var longitude: Double?
     var photos: [Photo] = []
     var dataController: DataController?
     var location: Location!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(latitude ?? "not found")
+        print(location ?? "not found")
         
         //FIXME: discover why the hell the pictures are not being shown correctly
         loadSavedImages()
     }
     
     func downloadAlbum(){
-
-        guard let latitude = latitude else {
-            print("ERROR: latitude not found")
-            return
-        }
-        guard let longitude = longitude else {
-            print("ERROR: longitude not found")
-            return
-        }
-        let url = FlickrClient.buildURL(latitude: latitude, longitude: longitude)
+        let url = FlickrClient.buildURL(latitude: location.latitude, longitude: location.longitude)
         FlickrClient.requestPhotoAlbum(url: url) { (data, error) in
         guard let data = data else{
             print(error!)
@@ -51,14 +40,9 @@ class PhotoAlbumViewController: UICollectionViewController {
                     newPhoto.img = photoImg.pngData()
                     newPhoto.title = p.title
                     self.photos.append(newPhoto)
-                    print("photo count: " + String(self.photos.count))
+                    print("downloaded photo count: " + String(self.photos.count))
 
-                    do{
-                        try self.dataController?.viewContext.save()}
-                    catch{
-                        print("ERROR: error while saving image to model")
-                        return
-                    }
+                    try? self.dataController?.viewContext.save()
 
                 }
                 
@@ -73,12 +57,13 @@ class PhotoAlbumViewController: UICollectionViewController {
     
     func loadSavedImages(){
         
-        let fetchRequest : NSFetchRequest<Photo> = Photo.fetchRequest()
         let predicate = NSPredicate(format: "location == %@", location)
+        let fetchRequest : NSFetchRequest<Photo> = Photo.fetchRequest()
         fetchRequest.predicate = predicate
         
         guard let result = try? dataController?.viewContext.fetch(fetchRequest) else{return}
         photos = result
+        print("saved data count:" + String(photos.count))
         
         if photos.count == 0{
             downloadAlbum()
@@ -132,5 +117,6 @@ class PhotoAlbumViewController: UICollectionViewController {
     
     @IBAction func refreshData(_ sender: Any) {
         self.collectionView.reloadData()
+        try? dataController?.viewContext.save()
     }
 }
