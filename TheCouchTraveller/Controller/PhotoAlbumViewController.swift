@@ -39,16 +39,12 @@ class PhotoAlbumViewController: UICollectionViewController {
                     let newPhoto = Photo(context: self.dataController!.viewContext)
                     newPhoto.img = photoImg.pngData()
                     newPhoto.title = p.title
+                    newPhoto.location = self.location
                     self.photos.append(newPhoto)
-                    print("downloaded photo count: " + String(self.photos.count))
-
                     try? self.dataController?.viewContext.save()
-
                 }
-                
                 //TODO: filter the private photos?
             }
-            
             DispatchQueue.main.async {
                     self.collectionView.reloadData()
                    }
