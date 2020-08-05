@@ -19,6 +19,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     var annotations = [MKPointAnnotation]()
     var dataController: DataController?
     var locations: [Location] = []
+    var toPass: Location?
     var longitude: Double = 0
     var latitude: Double = 0
     
@@ -53,6 +54,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        let lon = view.annotation?.coordinate.longitude
+        let lat = view.annotation?.coordinate.latitude
+        for l in locations{
+            if l.longitude == lon && l.latitude == lat{
+                self.toPass = l
+            }
+        }
         performSegue(withIdentifier: "showPhotos", sender: view)
 
     }
@@ -70,14 +78,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         locations = result
         if locations.count > 0{
             for location in locations{
-                let geoPos = CLLocation(latitude: location.latitude, longitude: location.longitude)
-                let annotation = MKPointAnnotation()
-                
-                CLGeocoder().reverseGeocodeLocation(geoPos) { (placemarks, error) in
+                let geoPos = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+                let annotation = IndexedAnnotation(coordinate: geoPos)
+                let loc: CLLocation = CLLocation(latitude:geoPos.latitude, longitude: geoPos.longitude)
+                CLGeocoder().reverseGeocodeLocation(loc) { (placemarks, error) in
                     guard let placemark = placemarks?.first else { return }
                     annotation.title = placemark.name ?? "Not Known"
                     annotation.subtitle = placemark.country
-                    annotation.coordinate = geoPos.coordinate
+                    annotation.coordinate = loc.coordinate
+                    annotation.index = self.locations.firstIndex(of: location)
                     DispatchQueue.main.async {
                         self.mapView.addAnnotation(annotation)
 
@@ -111,11 +120,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         savedGeo.creationDate = Date()
         try? dataController!.viewContext.save()
         
-        let annotation = MKPointAnnotation()
+        let annotation = IndexedAnnotation(coordinate: coordinate)
         CLGeocoder().reverseGeocodeLocation(geoPos) { (placemarks, error) in
             guard let placemark = placemarks?.first else { return }
             annotation.title = placemark.name ?? "Not Known"
             annotation.subtitle = placemark.country
+            annotation.index = self.locations.firstIndex(of: savedGeo)
             annotation.coordinate = coordinate
             DispatchQueue.main.async {
                 self.mapView.addAnnotation(annotation)
@@ -130,6 +140,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         destination.latitude = location.annotation?.coordinate.latitude
         destination.longitude = location.annotation?.coordinate.longitude
         destination.dataController = dataController
+        destination.location = toPass
 
         
         //TODO: inject location so PhotoAlbumViewController can download the pictures!!!

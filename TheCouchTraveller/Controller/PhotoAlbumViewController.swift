@@ -7,14 +7,15 @@
 //
 
 import UIKit
+import CoreData
 
 class PhotoAlbumViewController: UICollectionViewController {
 
     var latitude: Double?
     var longitude: Double?
     var photos: [Photo] = []
-    var downloadedPhotos: [UIImage] = []
     var dataController: DataController?
+    var location: Location!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,12 +47,12 @@ class PhotoAlbumViewController: UICollectionViewController {
                         print(error!)
                         return
                     }
-                    self.downloadedPhotos.append(photoImg)
-                    print("photo count: " + String(self.downloadedPhotos.count))
                     let newPhoto = Photo(context: self.dataController!.viewContext)
                     newPhoto.img = photoImg.pngData()
                     newPhoto.title = p.title
                     self.photos.append(newPhoto)
+                    print("photo count: " + String(self.photos.count))
+
                     do{
                         try self.dataController?.viewContext.save()}
                     catch{
@@ -71,7 +72,21 @@ class PhotoAlbumViewController: UICollectionViewController {
     }
     
     func loadSavedImages(){
-        downloadAlbum()
+        
+        let fetchRequest : NSFetchRequest<Photo> = Photo.fetchRequest()
+        let predicate = NSPredicate(format: "location == %@", location)
+        fetchRequest.predicate = predicate
+        
+        guard let result = try? dataController?.viewContext.fetch(fetchRequest) else{return}
+        photos = result
+        
+        if photos.count == 0{
+            downloadAlbum()
+        } else{
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
     }
     
     
@@ -80,15 +95,19 @@ class PhotoAlbumViewController: UICollectionViewController {
        }
        
        override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-           return downloadedPhotos.count
+           return photos.count
        }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //sets the cell using photo data
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! PhotoCell
-        let photo = self.downloadedPhotos[indexPath.row]
-        cell.imageView.image = photo
+        let photo = self.photos[indexPath.row]
+        guard let data = photo.img else {
+            fatalError("ERROR WHILE CONVERTING DATA TO UIIMAGE")
+        }
+        let img = UIImage(data: data, scale:1.0)
+        cell.imageView.image = img
         return cell
     }
     

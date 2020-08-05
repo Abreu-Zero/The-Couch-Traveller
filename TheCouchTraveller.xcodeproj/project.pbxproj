@@ -15,6 +15,7 @@
 		9925FDDB24D80941001ADBD2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9925FDD924D80941001ADBD2 /* Main.storyboard */; };
 		9925FDDD24D8094A001ADBD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9925FDDC24D8094A001ADBD2 /* Assets.xcassets */; };
 		9925FDE024D8094A001ADBD2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9925FDDE24D8094A001ADBD2 /* LaunchScreen.storyboard */; };
+		9928C6F924DACF040066F52E /* IndexedAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9928C6F824DACF040066F52E /* IndexedAnnotation.swift */; };
 		997B102824D9DBDB00E454BF /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B102724D9DBDB00E454BF /* DetailsViewController.swift */; };
 		99FC681124D868C000F5DF23 /* FlickrClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FC681024D868C000F5DF23 /* FlickrClient.swift */; };
 		99FC681424D8732200F5DF23 /* Photos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FC681324D8732200F5DF23 /* Photos.swift */; };
@@ -33,6 +34,7 @@
 		9925FDDC24D8094A001ADBD2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9925FDDF24D8094A001ADBD2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9925FDE124D8094A001ADBD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9928C6F824DACF040066F52E /* IndexedAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexedAnnotation.swift; sourceTree = "<group>"; };
 		997B102724D9DBDB00E454BF /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		99FC681024D868C000F5DF23 /* FlickrClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrClient.swift; sourceTree = "<group>"; };
 		99FC681324D8732200F5DF23 /* Photos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photos.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 				99200AF724D81B09009F9560 /* Controller */,
 				99200AF824D81B15009F9560 /* View */,
 				9925FDE124D8094A001ADBD2 /* Info.plist */,
+				9928C6F824DACF040066F52E /* IndexedAnnotation.swift */,
 			);
 			path = TheCouchTraveller;
 			sourceTree = "<group>";
@@ -214,6 +217,7 @@
 				99FC681624D8757500F5DF23 /* PhotoAlbumViewController.swift in Sources */,
 				99200AFC24D81B60009F9560 /* TheCouchTraveller.xcdatamodeld in Sources */,
 				9925FDD624D80941001ADBD2 /* SceneDelegate.swift in Sources */,
+				9928C6F924DACF040066F52E /* IndexedAnnotation.swift in Sources */,
 				99FC681124D868C000F5DF23 /* FlickrClient.swift in Sources */,
 				99FC681424D8732200F5DF23 /* Photos.swift in Sources */,
 				997B102824D9DBDB00E454BF /* DetailsViewController.swift in Sources */,
