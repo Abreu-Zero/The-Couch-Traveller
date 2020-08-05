@@ -56,7 +56,6 @@
 		99200AF724D81B09009F9560 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				99FC681724D9D89B00F5DF23 /* Cells */,
 				9925FDD724D80941001ADBD2 /* MapViewController.swift */,
 				99FC681524D8757500F5DF23 /* PhotoAlbumViewController.swift */,
 				997B102724D9DBDB00E454BF /* DetailsViewController.swift */,
@@ -67,6 +66,7 @@
 		99200AF824D81B15009F9560 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				99FC681724D9D89B00F5DF23 /* Cells */,
 				9925FDD924D80941001ADBD2 /* Main.storyboard */,
 				9925FDDC24D8094A001ADBD2 /* Assets.xcassets */,
 				9925FDDE24D8094A001ADBD2 /* LaunchScreen.storyboard */,

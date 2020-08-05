@@ -93,9 +93,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                     }
                 }
             }
-            
         }
-        
     }
     
     //MARK: Touch Funcs
@@ -119,6 +117,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         savedGeo.longitude = geoPos.coordinate.longitude
         savedGeo.creationDate = Date()
         try? dataController!.viewContext.save()
+        locations.append(savedGeo)
         
         let annotation = IndexedAnnotation(coordinate: coordinate)
         CLGeocoder().reverseGeocodeLocation(geoPos) { (placemarks, error) in
