@@ -22,9 +22,6 @@ class PhotoAlbumViewController: UICollectionViewController {
         
         //FIXME: discover why the hell the pictures are not being shown correctly
         loadSavedImages()
-        if photos.count == 0{
-            downloadAlbum()
-        }
     }
     
     func downloadAlbum(){
@@ -44,22 +41,27 @@ class PhotoAlbumViewController: UICollectionViewController {
             return
             }
             for p in data{
-                let newPhoto = Photo(context: self.dataController!.viewContext)
-                newPhoto.url = URL(string: p.url)
-                newPhoto.title = p.title
-                self.photos.append(newPhoto)
-                //TODO: filter the private photos?
-                
-                FlickrClient.requestImageFile(url: newPhoto.url!) { (photoImg, error) in
-                guard let photoImg = photoImg else{
-                    print(error!)
-                    return
+                FlickrClient.requestImageFile(url: URL(string: p.url)!) { (photoImg, error) in
+                    guard let photoImg = photoImg else{
+                        print(error!)
+                        return
                     }
                     self.downloadedPhotos.append(photoImg)
                     print("photo count: " + String(self.downloadedPhotos.count))
+                    let newPhoto = Photo(context: self.dataController!.viewContext)
+                    newPhoto.img = photoImg.pngData()
+                    newPhoto.title = p.title
+                    self.photos.append(newPhoto)
+                    do{
+                        try self.dataController?.viewContext.save()}
+                    catch{
+                        print("ERROR: error while saving image to model")
+                        return
+                    }
 
                 }
-            
+                
+                //TODO: filter the private photos?
             }
             
             DispatchQueue.main.async {
