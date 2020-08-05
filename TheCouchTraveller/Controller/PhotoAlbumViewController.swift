@@ -56,13 +56,14 @@ class PhotoAlbumViewController: UICollectionViewController {
                     return
                     }
                     self.downloadedPhotos.append(photoImg)
+                    print("photo count: " + String(self.downloadedPhotos.count))
+
                 }
             
             }
             
             DispatchQueue.main.async {
-                       self.collectionView.reloadData()
-
+                    self.collectionView.reloadData()
                    }
         }
     }
@@ -108,4 +109,7 @@ class PhotoAlbumViewController: UICollectionViewController {
         
      }
     
+    @IBAction func refreshData(_ sender: Any) {
+        self.collectionView.reloadData()
+    }
 }
