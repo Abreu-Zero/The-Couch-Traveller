@@ -16,8 +16,8 @@ class FlickrClient{
         let toReturn = "https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=7eb8d8258cca4594b5a50ae10b735ed2" +
             "&lat=\(String(latitude))" +
             "&lon=\(String(longitude))" +
-            "&radius=10" +
-            "&per_page=20" +
+            "&radius=15" +
+            "&per_page=50" +
             "&page=0" +
             "&format=json&nojsoncallback=1&extras=url_m"
         
