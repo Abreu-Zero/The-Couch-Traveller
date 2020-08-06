@@ -12,6 +12,7 @@ import CoreData
 class PhotoAlbumViewController: UICollectionViewController {
 
     var photos: [Photo] = []
+    var photoAlbum: [PhotoR] = []
     var dataController: DataController?
     var location: Location!
     
@@ -30,6 +31,7 @@ class PhotoAlbumViewController: UICollectionViewController {
             print(error!)
             return
             }
+            self.photoAlbum = data
             for p in data{
                 FlickrClient.requestImageFile(url: URL(string: p.url)!) { (photoImg, error) in
                     guard let photoImg = photoImg else{
@@ -70,25 +72,32 @@ class PhotoAlbumViewController: UICollectionViewController {
         }
     }
     
-    
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-           return 1
-       }
        
        override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-           return photos.count
+        if photos.count >= photoAlbum.count{
+            return photos.count
+        } else{
+            return photoAlbum.count
+
+        }
        }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //sets the cell using photo data
-
+        //FIXME: fix this here please
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! PhotoCell
-        let photo = self.photos[indexPath.row]
-        guard let data = photo.img else {
-            fatalError("ERROR WHILE CONVERTING DATA TO UIIMAGE")
+        cell.imageView.image = UIImage(named: "placeholder")
+        if photos.count > 0{
+            let photo = self.photos[indexPath.row]
+            guard let data = photo.img else {
+                fatalError("ERROR WHILE CONVERTING DATA TO UIIMAGE")
+            }
+            let img = UIImage(data: data, scale:1.0)
+            DispatchQueue.main.async {
+                cell.imageView.image = img
+            }
         }
-        let img = UIImage(data: data, scale:1.0)
-        cell.imageView.image = img
+        
         return cell
     }
     
