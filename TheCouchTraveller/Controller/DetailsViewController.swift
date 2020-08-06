@@ -21,4 +21,8 @@ class DetailsViewController: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
+    
+    func deletePhoto(){
+    //TODO: Implement method
+    }
 }

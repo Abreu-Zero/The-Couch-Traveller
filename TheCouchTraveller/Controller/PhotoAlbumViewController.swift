@@ -21,7 +21,11 @@ class PhotoAlbumViewController: UICollectionViewController {
         loadSavedImages()
     }
     
+    //MARK: handler functions
+    
     func downloadAlbum(){
+        //func handles the API download and populates the array. Is called if the user
+        //dont have saved photos on the device
         let url = FlickrClient.buildURL(latitude: location.latitude, longitude: location.longitude)
         FlickrClient.requestPhotoAlbum(url: url) { (data, error) in
         guard let data = data else{
@@ -51,7 +55,8 @@ class PhotoAlbumViewController: UICollectionViewController {
     }
     
     func loadSavedImages(){
-        
+        //func check for saved photos, if the user dont have downloaded them yet, it asks
+        //for the download and populates the array
         let predicate = NSPredicate(format: "location == %@", location)
         let fetchRequest : NSFetchRequest<Photo> = Photo.fetchRequest()
         fetchRequest.predicate = predicate
@@ -67,9 +72,13 @@ class PhotoAlbumViewController: UICollectionViewController {
                 self.collectionView.reloadData()
             }
         }
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
     }
     
-       
+       //MARK: CollectionView Functions
+    
        override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if photos.count >= photoAlbum.count{
             return photos.count
@@ -81,7 +90,6 @@ class PhotoAlbumViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //sets the cell using photo data
-        //FIXME: fix this here please
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! PhotoCell
         cell.imageView.image = UIImage(named: "placeholder")
         if photos.count > 0{
@@ -104,7 +112,6 @@ class PhotoAlbumViewController: UICollectionViewController {
          if let cell = sender as? UICollectionViewCell{
             let indexPath = self.collectionView!.indexPath(for: cell)
             let photo = self.photos[indexPath!.row]
-            let img = UIImage(data: photo.img!, scale:1.0)
             let viewDestination = segue.destination as! DetailsViewController
             viewDestination.photo = photo
          }
@@ -112,8 +119,11 @@ class PhotoAlbumViewController: UICollectionViewController {
         
      }
     
+    //MARK: the refresher
+    
     @IBAction func refreshData(_ sender: Any) {
         self.collectionView.reloadData()
         try? dataController?.viewContext.save()
+        //TODO: Implement new random download
     }
 }
