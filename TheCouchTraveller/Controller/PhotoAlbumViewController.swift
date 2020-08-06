@@ -18,9 +18,6 @@ class PhotoAlbumViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(location ?? "not found")
-        
-        //FIXME: discover why the hell the pictures are not being shown correctly
         loadSavedImages()
     }
     
@@ -104,17 +101,12 @@ class PhotoAlbumViewController: UICollectionViewController {
     // MARK: segue funcs
     
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-         if segue.identifier == "toPhoto"{
-      
-             if let cell = sender as? UICollectionViewCell{
-                
-                let indexPath = self.collectionView!.indexPath(for: cell)
-                let photo = self.photos[indexPath!.row]
-                let viewDestination = segue.destination as! DetailsViewController
-
-                 
-             }
-             
+         if let cell = sender as? UICollectionViewCell{
+            let indexPath = self.collectionView!.indexPath(for: cell)
+            let photo = self.photos[indexPath!.row]
+            let img = UIImage(data: photo.img!, scale:1.0)
+            let viewDestination = segue.destination as! DetailsViewController
+            viewDestination.photo = photo
          }
         
         
