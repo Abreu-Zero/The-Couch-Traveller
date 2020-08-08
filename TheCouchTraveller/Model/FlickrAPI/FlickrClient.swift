@@ -11,8 +11,10 @@ import UIKit
 
 class FlickrClient{
     
+    //builds the URL for the GET request, using INt.random
+    // to get a different page every request
+    
     class func buildURL(latitude: Double, longitude: Double) -> URL{
-// TODO: implement random page selector
         let randomPage = Int.random(in: 0..<25)
         let pageString = "&page=0\(randomPage)"
         let toReturn =  "https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=7eb8d8258cca4594b5a50ae10b735ed2" +
@@ -48,6 +50,8 @@ class FlickrClient{
         })
         task.resume()
     }
+    
+    //this request uses the previous response's URL to download the final image
     
     class func requestImageFile(url: URL, completionHandler: @escaping (UIImage?, Error?) -> Void) {
         let task = URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
