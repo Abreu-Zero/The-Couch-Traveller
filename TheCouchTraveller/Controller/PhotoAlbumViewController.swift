@@ -16,9 +16,9 @@ class PhotoAlbumViewController: UICollectionViewController {
     var dataController: DataController?
     var location: Location!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
         loadSavedImages()
+        collectionView.reloadData()
     }
     
     //MARK: handler functions
@@ -114,6 +114,7 @@ class PhotoAlbumViewController: UICollectionViewController {
             let photo = self.photos[indexPath!.row]
             let viewDestination = segue.destination as! DetailsViewController
             viewDestination.photo = photo
+            viewDestination.dataController = dataController
          }
         
         

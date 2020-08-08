@@ -131,7 +131,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wwU-f8-MKk"/>
                     </view>
-                    <navigationItem key="navigationItem" id="QTb-Qd-cHv"/>
+                    <navigationItem key="navigationItem" id="QTb-Qd-cHv">
+                        <barButtonItem key="rightBarButtonItem" systemItem="trash" id="x3t-zZ-pun">
+                            <connections>
+                                <action selector="deletePhoto:" destination="0Sg-Is-fpB" id="JzQ-1C-KyC"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="imageView" destination="Pam-F6-Hgo" id="t2k-pF-wnj"/>
                         <outlet property="titleLabel" destination="WSz-uy-Oum" id="w2M-EY-HGG"/>
