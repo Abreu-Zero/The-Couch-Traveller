@@ -13,12 +13,14 @@ class FlickrClient{
     
     class func buildURL(latitude: Double, longitude: Double) -> URL{
 // TODO: implement random page selector
-        let toReturn = "https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=7eb8d8258cca4594b5a50ae10b735ed2" +
+        let randomPage = Int.random(in: 0..<25)
+        let pageString = "&page=0\(randomPage)"
+        let toReturn =  "https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=7eb8d8258cca4594b5a50ae10b735ed2" +
             "&lat=\(String(latitude))" +
             "&lon=\(String(longitude))" +
             "&radius=15" +
             "&per_page=50" +
-            "&page=0" +
+            pageString +
             "&format=json&nojsoncallback=1&extras=url_m"
         
         return URL(string: toReturn)!

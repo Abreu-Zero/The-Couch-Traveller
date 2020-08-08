@@ -122,6 +122,13 @@ class PhotoAlbumViewController: UICollectionViewController {
     //MARK: the refresher
     
     @IBAction func refreshData(_ sender: Any) {
+        for photo in photos{
+            dataController?.viewContext.delete(photo)
+        }
+        
+        try? dataController?.viewContext.save()
+        photos = []
+        downloadAlbum()
         self.collectionView.reloadData()
         try? dataController?.viewContext.save()
         //TODO: Implement new random download
