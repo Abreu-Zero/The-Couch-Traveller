@@ -27,8 +27,12 @@ class DetailsViewController: UIViewController {
         presentNewNotebookAlert()
     }
     
+    // I know that I am really creative
+    
     func nowReallyDeletePhoto(){
-        print("I WILL DELETE IT I SWEAR")
+        
+        //user confirmed, lets delete this bad boy
+        
         dataController?.viewContext.delete(photo!)
         try? dataController?.viewContext.save()
         _ = navigationController?.popViewController(animated: true)

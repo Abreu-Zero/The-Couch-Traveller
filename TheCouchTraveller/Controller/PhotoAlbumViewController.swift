@@ -24,8 +24,10 @@ class PhotoAlbumViewController: UICollectionViewController {
     //MARK: handler functions
     
     func downloadAlbum(){
+        
         //func handles the API download and populates the array. Is called if the user
         //dont have saved photos on the device
+        
         let url = FlickrClient.buildURL(latitude: location.latitude, longitude: location.longitude)
         FlickrClient.requestPhotoAlbum(url: url) { (data, error) in
         guard let data = data else{
@@ -46,7 +48,6 @@ class PhotoAlbumViewController: UICollectionViewController {
                     self.photos.append(newPhoto)
                     try? self.dataController?.viewContext.save()
                 }
-                //TODO: filter the private photos?
             }
             DispatchQueue.main.async {
                     self.collectionView.reloadData()
@@ -55,8 +56,10 @@ class PhotoAlbumViewController: UICollectionViewController {
     }
     
     func loadSavedImages(){
+        
         //func check for saved photos, if the user dont have downloaded them yet, it asks
         //for the download and populates the array
+        
         let predicate = NSPredicate(format: "location == %@", location)
         let fetchRequest : NSFetchRequest<Photo> = Photo.fetchRequest()
         fetchRequest.predicate = predicate
@@ -89,10 +92,12 @@ class PhotoAlbumViewController: UICollectionViewController {
        }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         //sets the cell using photo data
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! PhotoCell
         cell.imageView.image = UIImage(named: "placeholder")
-        if photos.count > 0{
+        if photos.count > 0 && indexPath.row <= photos.count{
             let photo = self.photos[indexPath.row]
             guard let data = photo.img else {
                 fatalError("ERROR WHILE CONVERTING DATA TO UIIMAGE")
@@ -132,6 +137,5 @@ class PhotoAlbumViewController: UICollectionViewController {
         downloadAlbum()
         self.collectionView.reloadData()
         try? dataController?.viewContext.save()
-        //TODO: Implement new random download
     }
 }

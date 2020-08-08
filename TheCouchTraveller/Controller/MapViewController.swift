@@ -66,7 +66,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     
     //MARK: Map Funcs
+    
     // fetches request from datamodel and loads the mapview
+    
     func loadMap(){
         
         let fetchRequest : NSFetchRequest<Location> = Location.fetchRequest()
@@ -78,20 +80,19 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if locations.count > 0{
             for location in locations{
                 let geoPos = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
-                let annotation = IndexedAnnotation(coordinate: geoPos)
-                let loc: CLLocation = CLLocation(latitude:geoPos.latitude, longitude: geoPos.longitude)
-                CLGeocoder().reverseGeocodeLocation(loc) { (placemarks, error) in
-                    guard let placemark = placemarks?.first else { return }
-                    annotation.title = placemark.name ?? "Not Known"
-                    annotation.subtitle = placemark.country
-                    annotation.coordinate = loc.coordinate
-                    annotation.index = self.locations.firstIndex(of: location)
-                    DispatchQueue.main.async {
-                        self.mapView.addAnnotation(annotation)
-
-                    }
-                }
+                createAndAddAnnotation(coord: geoPos, location: location)
+                
             }
+        }
+    }
+    
+    func createAndAddAnnotation(coord: CLLocationCoordinate2D, location: Location){
+        let annotation = IndexedAnnotation(coordinate: coord)
+        let loc: CLLocation = CLLocation(latitude:coord.latitude, longitude: coord.longitude)
+        annotation.coordinate = loc.coordinate
+        annotation.index = self.locations.firstIndex(of: location)
+        DispatchQueue.main.async {
+            self.mapView.addAnnotation(annotation)
         }
     }
     
@@ -102,14 +103,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             activityIndicator.startAnimating()
         } else if sender.state == .ended {
             let coord = mapView.convert(sender.location(in: mapView), toCoordinateFrom: mapView)
-            saveGeoCoordination(from: coord)
+            saveGeoFromLongPress(from: coord)
             activityIndicator.stopAnimating()
 
         }
     }
     
     //convert and save the longPress into coordinates
-    func saveGeoCoordination(from coordinate: CLLocationCoordinate2D) {
+    func saveGeoFromLongPress (from coordinate: CLLocationCoordinate2D) {
         let geoPos = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
         let savedGeo = Location(context: dataController!.viewContext)
         savedGeo.latitude = geoPos.coordinate.latitude
@@ -118,20 +119,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         try? dataController!.viewContext.save()
         locations.append(savedGeo)
         
-        let annotation = IndexedAnnotation(coordinate: coordinate)
-        CLGeocoder().reverseGeocodeLocation(geoPos) { (placemarks, error) in
-            guard let placemark = placemarks?.first else { return }
-            annotation.title = placemark.name ?? "Not Known"
-            annotation.subtitle = placemark.country
-            annotation.index = self.locations.firstIndex(of: savedGeo)
-            annotation.coordinate = coordinate
-            DispatchQueue.main.async {
-                self.mapView.addAnnotation(annotation)
-
-            }
-        }
+        createAndAddAnnotation(coord: coordinate, location: savedGeo)
     }
     
+    //segue injects dataController and the location
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destination = segue.destination as! PhotoAlbumViewController
         destination.dataController = dataController
