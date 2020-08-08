@@ -17,6 +17,7 @@ class PhotoAlbumViewController: UICollectionViewController {
     var location: Location!
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         loadSavedImages()
         collectionView.reloadData()
     }
