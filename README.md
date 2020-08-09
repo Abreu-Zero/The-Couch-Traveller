@@ -1,8 +1,10 @@
-#the-couch-traveller
+the-couch-traveller
+===================
 
 small iOS app that allows you to travel around without leaving the couch - or at least see some pictures, idk im not instagram
 
-##Why?
+Why?
+------
 
 This is a simple app that helped me better understand persistent data with CoreData using a somewhat complex model and to improve my network requests skills.
 
@@ -10,7 +12,8 @@ This is a simple app that helped me better understand persistent data with CoreD
 * Stores media on the device file system
 * Uses CoreData for local persistence
 
-##Requiremnts:
+Requirements:
+------------
 *from Udacity's Nanodegree*
 
 **App Specification: Virtual Tourist**
@@ -21,7 +24,8 @@ The app will have two view controller scenes.
 Travel Locations Map View: Allows the user to drop pins around the world
 Photo Album View: Allows the users to download and edit an album for a location
 
-##How?
+How?
+----
 
 Just clone it and you are ready to build at xcode, please let me know what you think!
 
