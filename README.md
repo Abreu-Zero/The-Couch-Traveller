@@ -1,7 +1,7 @@
 the-couch-traveller
 ===================
 
-small iOS app that allows you to travel around without leaving the couch - or at least see some pictures, idk im not instagram
+small iOS app that allows you to travel around without leaving the couch - or at least see some pictures, idk I'm not instagram
 
 Why?
 ------
